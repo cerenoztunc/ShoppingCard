@@ -1,0 +1,42 @@
+﻿@model Cart
+@{
+    ViewBag.Title = "SepetSayfasi";
+}
+
+@if(ViewBag.SepetBos != null)
+            {
+                <h1 style="color:red">@ViewBag.SepetBos</h1>
+            }
+            else
+            {
+                <div class="jumbotron">
+                    Odemeniz gereken toplam tutar => @Model.TotalPrice ...Siparisi onaylamak icin lütfen @Html.ActionLink("tıklayınız","SiparisOnayla")
+                </div>
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Urun Ismi</th>
+                            <th>Urun Fiyatı</th>
+                            <th>Urun Adedi</th>
+                            <th>Ara Fiyat</th>
+                            <th>@Html.ActionLink("Alısverişe devam","ProductList",null,new { @class="btn btn-primary"})</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (CartItem item in Model.Sepetim)
+                        {
+                            <tr>
+                                <td>@item.ProductName</td>
+                                <td>@item.UnitPrice</td>
+                                <td>@item.Amount</td>
+                                <td>@item.SubTotal</td>
+                                <td>
+                                    @Html.ActionLink("Sepetten cıkar", "SepettenCikar", new { id = item.ID }, new {@class="btn btn-danger"})
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
